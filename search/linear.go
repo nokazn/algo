@@ -5,8 +5,8 @@ import (
 	"os"
 )
 
-func scanf(f, message string) func(*int) int {
-	return func(p *int) int {
+func scanf(f string) func(*int, string) int {
+	return func(p *int, message string) int {
 		fmt.Print(message)
 		_, err := fmt.Scanf(f, p)
 		if err != nil {
@@ -29,6 +29,14 @@ func scanfIntList(p []int, length int, message string) []int {
 	return p
 }
 
+func makeList(l int) []int {
+	list := make([]int, l)
+	for i := 0; i < l; i++ {
+		list[i] = i
+	}
+	return list
+}
+
 func linearSearch(list []int, x int) int {
 	for i := 0; i < len(list); i++ {
 		if list[i] == x {
@@ -40,10 +48,11 @@ func linearSearch(list []int, x int) int {
 
 func main() {
 	var n, x int
-
-	scanf("%d", "Please input the number of books: ")(&n)
-	list := make([]int, n)
-	scanfIntList(list, n, "Please input a list of turns of books: ")
-	scanf("%d", "Please input the number you want to retrive: ")(&x)
+	scanInt := scanf("%d")
+	scanInt(&n, "Please input the number of books: ")
+	// list := make([]int, n)
+	// scanfIntList(list, n, "Please input a list of turns of books: ")
+	list := makeList(n)
+	scanInt(&x, "Please input the number you want to retrive: ")
 	fmt.Printf("The index of the book with No.%d is %d.\n", x, linearSearch(list, x))
 }
