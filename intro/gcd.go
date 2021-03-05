@@ -23,7 +23,7 @@ func scanf(f string) func(*int) int {
 	}
 }
 
-func GreatestCommonDivisor(a, b int) int {
+func greatestCommonDivisor(a, b int) int {
 	fmt.Println(a, b)
 	n := 1
 	for i := min(a, b); i > 1; i-- {
@@ -45,6 +45,6 @@ func main() {
 		"The greatest common divisor of %d and %d is %d.\n",
 		a,
 		b,
-		GreatestCommonDivisor(a, b),
+		greatestCommonDivisor(a, b),
 	)
 }

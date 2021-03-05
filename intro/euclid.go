@@ -16,12 +16,12 @@ func scanf(f string) func(*int) int {
 	}
 }
 
-func Euclid(a, b int) int {
+func euclid(a, b int) int {
 	r := a % b
 	if r == 0 {
 		return b
 	}
-	return Euclid(b, r)
+	return euclid(b, r)
 }
 
 func main() {
@@ -35,6 +35,6 @@ func main() {
 		"The greatest common divisor of %d and %d is %d.\n",
 		a,
 		b,
-		Euclid(a, b),
+		euclid(a, b),
 	)
 }
