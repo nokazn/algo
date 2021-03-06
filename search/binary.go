@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 )
 
 func scanf(f string) func(string) int {
@@ -31,10 +33,21 @@ func scanfIntList(length int, message string) []int {
 	return list
 }
 
+func randomBool() bool {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(3) == 1
+}
+
 func makeList(l int) []int {
 	list := make([]int, l)
 	for i := 0; i < l; i++ {
-		list[i] = i
+		if i == 0 {
+			list[i] = 0
+		} else if randomBool() {
+			list[i] = list[i-1]
+		} else {
+			list[i] = list[i-1] + 1
+		}
 	}
 	return list
 }
@@ -48,16 +61,13 @@ func binarySearch(list []int, x int) int {
 		return -1
 	}
 
-	for start <= end-1 {
-		i := (start + end) / 2
-		center := list[i]
-		if x == center {
-			return i
-		}
-		if x < center {
-			end = i
+	for start < end {
+		mid := (start + end) / 2
+		fmt.Println(start, mid, end)
+		if list[mid] < x {
+			start = mid + 1
 		} else {
-			start = i
+			end = mid
 		}
 	}
 
@@ -74,4 +84,5 @@ func main() {
 	list := makeList(n)
 	x := scanInt("Please input the number of books: ")
 	fmt.Printf("The index of the book with No.%d is %d.\n", x, binarySearch(list, x))
+	fmt.Println(list)
 }
